@@ -28,5 +28,6 @@ namespace ProyectoRecursosHumanos.Models
         public virtual DbSet<cargos> cargos { get; set; }
         public virtual DbSet<departamentos> departamentos { get; set; }
         public virtual DbSet<empleados> empleados { get; set; }
+        public virtual DbSet<nominas> nominas { get; set; }
     }
 }

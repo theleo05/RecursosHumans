@@ -11,27 +11,29 @@ namespace ProyectoRecursosHumanos.Models
 {
     using System;
     using System.Collections.Generic;
-	using System.ComponentModel.DataAnnotations;
-
-	public partial class empleados
+    
+    public partial class empleados
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public empleados()
+        {
+            this.nominas = new HashSet<nominas>();
+        }
+    
         public int id { get; set; }
-
-		[Display(Name ="Codigo del Empleado")]
         public string codigo_empleado { get; set; }
-
         public string nombre { get; set; }
         public string apellido { get; set; }
         public string telefono { get; set; }
         public int departamento { get; set; }
         public int cargo { get; set; }
-
-		[Display(Name = "Fecha de Ingreso")]
-		public string fecha_ingreso { get; set; }
-        public string salario { get; set; }
+        public string fecha_ingreso { get; set; }
+        public Nullable<int> salario { get; set; }
         public string estatus { get; set; }
     
         public virtual cargos cargos { get; set; }
         public virtual departamentos departamentos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<nominas> nominas { get; set; }
     }
 }

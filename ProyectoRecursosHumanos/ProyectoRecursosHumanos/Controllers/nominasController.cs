@@ -10,118 +10,117 @@ using ProyectoRecursosHumanos.Models;
 
 namespace ProyectoRecursosHumanos.Controllers
 {
-    public class empleadosController : Controller
-    {
-        private recursoshumaEntities db = new recursoshumaEntities();
+	public class nominasController : Controller
+	{
+		private recursoshumaEntities db = new recursoshumaEntities();
 
-        // GET: empleados
 
-		
-        public ActionResult Index()
-        {
-            var empleados = db.empleados.Include(e => e.cargos).Include(e => e.departamentos);
-            return View(empleados.ToList());
+		// GET: nominas
+		public ActionResult Index()
+		{
+			ViewBag.TotalSalario = db.empleados.Sum(a => a.salario);	
+			db.SaveChanges();
+			var nominas = db.nominas.Include(n => n.empleados);
+            return View(nominas.ToList());
         }
 
-        // GET: empleados/Details/5
+        // GET: nominas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
-            if (empleados == null)
+            nominas nominas = db.nominas.Find(id);
+            if (nominas == null)
             {
                 return HttpNotFound();
             }
-            return View(empleados);
+            return View(nominas);
         }
 
-        // GET: empleados/Create
+        // GET: nominas/Create
         public ActionResult Create()
         {
-            ViewBag.cargo = new SelectList(db.cargos, "id", "cargo");
-            ViewBag.departamento = new SelectList(db.departamentos, "id", "nombre");
+            ViewBag.monto_total = new SelectList(db.empleados, "id", "salario");
             return View();
         }
 
-        // POST: empleados/Create
+        // POST: nominas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,codigo_empleado,nombre,apellido,telefono,departamento,cargo,fecha_ingreso,salario,estatus")] empleados empleados)
+        public ActionResult Create([Bind(Include = "id,año,mes,monto_total")] nominas nominas)
         {
+
+
             if (ModelState.IsValid)
             {
-                db.empleados.Add(empleados);
+                db.nominas.Add(nominas);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.cargo = new SelectList(db.cargos, "id", "cargo", empleados.cargo);
-            ViewBag.departamento = new SelectList(db.departamentos, "id", "nombre", empleados.departamento);
-            return View(empleados);
+            ViewBag.monto_total = new SelectList(db.empleados, "id", "salario", nominas.monto_total);
+            return View(nominas);
         }
 
-        // GET: empleados/Edit/5
+        // GET: nominas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
-            if (empleados == null)
+            nominas nominas = db.nominas.Find(id);
+            if (nominas == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.cargo = new SelectList(db.cargos, "id", "cargo", empleados.cargo);
-            ViewBag.departamento = new SelectList(db.departamentos, "id", "nombre", empleados.departamento);
-            return View(empleados);
+            ViewBag.monto_total = new SelectList(db.empleados, "id", "salario", nominas.monto_total);
+            return View(nominas);
         }
 
-        // POST: empleados/Edit/5
+        // POST: nominas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,codigo_empleado,nombre,apellido,telefono,departamento,cargo,fecha_ingreso,salario,estatus")] empleados empleados)
+        public ActionResult Edit([Bind(Include = "id,año,mes,monto_total")] nominas nominas)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(empleados).State = EntityState.Modified;
+                db.Entry(nominas).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.cargo = new SelectList(db.cargos, "id", "cargo", empleados.cargo);
-            ViewBag.departamento = new SelectList(db.departamentos, "id", "nombre", empleados.departamento);
-            return View(empleados);
+            ViewBag.monto_total = new SelectList(db.empleados, "id", "salario", nominas.monto_total);
+            return View(nominas);
         }
 
-        // GET: empleados/Delete/5
+        // GET: nominas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleados empleados = db.empleados.Find(id);
-            if (empleados == null)
+            nominas nominas = db.nominas.Find(id);
+            if (nominas == null)
             {
                 return HttpNotFound();
             }
-            return View(empleados);
+            return View(nominas);
         }
 
-        // POST: empleados/Delete/5
+        // POST: nominas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            empleados empleados = db.empleados.Find(id);
-            db.empleados.Remove(empleados);
+            nominas nominas = db.nominas.Find(id);
+            db.nominas.Remove(nominas);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

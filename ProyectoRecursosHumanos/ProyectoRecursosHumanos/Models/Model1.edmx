@@ -32,8 +32,17 @@
           <Property Name="departamento" Type="int" Nullable="false" />
           <Property Name="cargo" Type="int" Nullable="false" />
           <Property Name="fecha_ingreso" Type="varchar" MaxLength="60" />
-          <Property Name="salario" Type="varchar" MaxLength="30" />
+          <Property Name="salario" Type="int" />
           <Property Name="estatus" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="nominas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="año" Type="varchar" MaxLength="15" />
+          <Property Name="mes" Type="varchar" MaxLength="15" />
+          <Property Name="monto_total" Type="int" />
         </EntityType>
         <Association Name="fk_cargo">
           <End Role="cargos" Type="Self.cargos" Multiplicity="1">
@@ -61,10 +70,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_monto_total">
+          <End Role="empleados" Type="Self.empleados" Multiplicity="0..1" />
+          <End Role="nominas" Type="Self.nominas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nominas">
+              <PropertyRef Name="monto_total" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="recursoshumaModelStoreContainer">
           <EntitySet Name="cargos" EntityType="Self.cargos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="departamentos" EntityType="Self.departamentos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="empleados" EntityType="Self.empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nominas" EntityType="Self.nominas" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_cargo" Association="Self.fk_cargo">
             <End Role="cargos" EntitySet="cargos" />
             <End Role="empleados" EntitySet="empleados" />
@@ -72,6 +94,10 @@
           <AssociationSet Name="fk_departamento" Association="Self.fk_departamento">
             <End Role="departamentos" EntitySet="departamentos" />
             <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="fk_monto_total" Association="Self.fk_monto_total">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="nominas" EntitySet="nominas" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -108,10 +134,21 @@
           <Property Name="departamento" Type="Int32" Nullable="false" />
           <Property Name="cargo" Type="Int32" Nullable="false" />
           <Property Name="fecha_ingreso" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="salario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="salario" Type="Int32" />
           <Property Name="estatus" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="cargos" Relationship="Self.fk_cargo" FromRole="empleados" ToRole="cargos" />
           <NavigationProperty Name="departamentos" Relationship="Self.fk_departamento" FromRole="empleados" ToRole="departamentos" />
+          <NavigationProperty Name="nominas" Relationship="Self.fk_monto_total" FromRole="empleados" ToRole="nominas" />
+        </EntityType>
+        <EntityType Name="nominas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="año" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="mes" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="monto_total" Type="Int32" />
+          <NavigationProperty Name="empleados" Relationship="Self.fk_monto_total" FromRole="nominas" ToRole="empleados" />
         </EntityType>
         <Association Name="fk_cargo">
           <End Role="cargos" Type="Self.cargos" Multiplicity="1">
@@ -139,10 +176,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_monto_total">
+          <End Role="empleados" Type="Self.empleados" Multiplicity="0..1" />
+          <End Role="nominas" Type="Self.nominas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nominas">
+              <PropertyRef Name="monto_total" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="recursoshumaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="cargos" EntityType="Self.cargos" />
           <EntitySet Name="departamentos" EntityType="Self.departamentos" />
           <EntitySet Name="empleados" EntityType="Self.empleados" />
+          <EntitySet Name="nominas" EntityType="Self.nominas" />
           <AssociationSet Name="fk_cargo" Association="Self.fk_cargo">
             <End Role="cargos" EntitySet="cargos" />
             <End Role="empleados" EntitySet="empleados" />
@@ -150,6 +200,10 @@
           <AssociationSet Name="fk_departamento" Association="Self.fk_departamento">
             <End Role="departamentos" EntitySet="departamentos" />
             <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="fk_monto_total" Association="Self.fk_monto_total">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="nominas" EntitySet="nominas" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -188,6 +242,16 @@
                 <ScalarProperty Name="fecha_ingreso" ColumnName="fecha_ingreso" />
                 <ScalarProperty Name="salario" ColumnName="salario" />
                 <ScalarProperty Name="estatus" ColumnName="estatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nominas">
+            <EntityTypeMapping TypeName="recursoshumaModel.nominas">
+              <MappingFragment StoreEntitySet="nominas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="año" ColumnName="año" />
+                <ScalarProperty Name="mes" ColumnName="mes" />
+                <ScalarProperty Name="monto_total" ColumnName="monto_total" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
