@@ -17,6 +17,9 @@ namespace ProyectoRecursosHumanos.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public empleados()
         {
+            this.vacaciones = new HashSet<vacaciones>();
+            this.licencias = new HashSet<licencias>();
+            this.permisos = new HashSet<permisos>();
             this.nominas = new HashSet<nominas>();
         }
     
@@ -33,6 +36,12 @@ namespace ProyectoRecursosHumanos.Models
     
         public virtual cargos cargos { get; set; }
         public virtual departamentos departamentos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vacaciones> vacaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<licencias> licencias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<permisos> permisos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<nominas> nominas { get; set; }
     }

@@ -18,7 +18,7 @@ namespace ProyectoRecursosHumanos.Controllers
 		// GET: nominas
 		public ActionResult Index()
 		{
-			ViewBag.TotalSalario = db.empleados.Sum(a => a.salario);	
+			ViewBag.TotalSalario = db.empleados.Sum(a => a.salario);
 			db.SaveChanges();
 			var nominas = db.nominas.Include(n => n.empleados);
             return View(nominas.ToList());

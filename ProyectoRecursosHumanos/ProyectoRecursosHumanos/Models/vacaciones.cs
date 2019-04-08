@@ -12,12 +12,13 @@ namespace ProyectoRecursosHumanos.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class nominas
+    public partial class vacaciones
     {
         public int id { get; set; }
-        public string año { get; set; }
-        public string mes { get; set; }
-        public Nullable<int> monto_total { get; set; }
+        public int id_empleado { get; set; }
+        public string desde { get; set; }
+        public string hasta { get; set; }
+        public string comentarios { get; set; }
     
         public virtual empleados empleados { get; set; }
     }
