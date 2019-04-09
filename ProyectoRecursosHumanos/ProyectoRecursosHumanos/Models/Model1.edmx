@@ -66,6 +66,16 @@
           <Property Name="hasta" Type="varchar" MaxLength="30" />
           <Property Name="comentarios" Type="varchar" MaxLength="350" />
         </EntityType>
+        <EntityType Name="salidas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_salempleado" Type="int" Nullable="false" />
+          <Property Name="tipo_salida" Type="varchar" MaxLength="50" />
+          <Property Name="motivo" Type="varchar" MaxLength="300" />
+          <Property Name="fecha_salida" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -154,6 +164,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_id_salempleado">
+          <End Role="empleados" Type="Self.empleados" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="salidas" Type="Self.salidas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salidas">
+              <PropertyRef Name="id_salempleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_monto_total">
           <End Role="empleados" Type="Self.empleados" Multiplicity="0..1" />
           <End Role="nominas" Type="Self.nominas" Multiplicity="*" />
@@ -173,6 +197,7 @@
           <EntitySet Name="licencias" EntityType="Self.licencias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="nominas" EntityType="Self.nominas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="permisos" EntityType="Self.permisos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="salidas" EntityType="Self.salidas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vacaciones" EntityType="Self.vacaciones" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_cargo" Association="Self.fk_cargo">
@@ -194,6 +219,10 @@
           <AssociationSet Name="fk_id_perempleado" Association="Self.fk_id_perempleado">
             <End Role="empleados" EntitySet="empleados" />
             <End Role="permisos" EntitySet="permisos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_salempleado" Association="Self.fk_id_salempleado">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="salidas" EntitySet="salidas" />
           </AssociationSet>
           <AssociationSet Name="fk_monto_total" Association="Self.fk_monto_total">
             <End Role="empleados" EntitySet="empleados" />
@@ -241,6 +270,7 @@
           <NavigationProperty Name="vacaciones" Relationship="Self.fk_id_empleado" FromRole="empleados" ToRole="vacaciones" />
           <NavigationProperty Name="licencias" Relationship="Self.fk_id_licempleado" FromRole="empleados" ToRole="licencias" />
           <NavigationProperty Name="permisos" Relationship="Self.fk_id_perempleado" FromRole="empleados" ToRole="permisos" />
+          <NavigationProperty Name="salidas" Relationship="Self.fk_id_salempleado" FromRole="empleados" ToRole="salidas" />
           <NavigationProperty Name="nominas" Relationship="Self.fk_monto_total" FromRole="empleados" ToRole="nominas" />
         </EntityType>
         <EntityType Name="licencias">
@@ -276,6 +306,17 @@
           <Property Name="hasta" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="comentarios" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="empleados" Relationship="Self.fk_id_perempleado" FromRole="permisos" ToRole="empleados" />
+        </EntityType>
+        <EntityType Name="salidas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_salempleado" Type="Int32" Nullable="false" />
+          <Property Name="tipo_salida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="motivo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_salida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="empleados" Relationship="Self.fk_id_salempleado" FromRole="salidas" ToRole="empleados" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -366,6 +407,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_id_salempleado">
+          <End Role="empleados" Type="Self.empleados" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="salidas" Type="Self.salidas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salidas">
+              <PropertyRef Name="id_salempleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_monto_total">
           <End Role="empleados" Type="Self.empleados" Multiplicity="0..1" />
           <End Role="nominas" Type="Self.nominas" Multiplicity="*" />
@@ -385,6 +440,7 @@
           <EntitySet Name="licencias" EntityType="Self.licencias" />
           <EntitySet Name="nominas" EntityType="Self.nominas" />
           <EntitySet Name="permisos" EntityType="Self.permisos" />
+          <EntitySet Name="salidas" EntityType="Self.salidas" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="vacaciones" EntityType="Self.vacaciones" />
           <AssociationSet Name="fk_cargo" Association="Self.fk_cargo">
@@ -406,6 +462,10 @@
           <AssociationSet Name="fk_id_perempleado" Association="Self.fk_id_perempleado">
             <End Role="empleados" EntitySet="empleados" />
             <End Role="permisos" EntitySet="permisos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_salempleado" Association="Self.fk_id_salempleado">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="salidas" EntitySet="salidas" />
           </AssociationSet>
           <AssociationSet Name="fk_monto_total" Association="Self.fk_monto_total">
             <End Role="empleados" EntitySet="empleados" />
@@ -482,6 +542,17 @@
                 <ScalarProperty Name="desde" ColumnName="desde" />
                 <ScalarProperty Name="hasta" ColumnName="hasta" />
                 <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salidas">
+            <EntityTypeMapping TypeName="recursoshumaModel.salidas">
+              <MappingFragment StoreEntitySet="salidas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_salempleado" ColumnName="id_salempleado" />
+                <ScalarProperty Name="tipo_salida" ColumnName="tipo_salida" />
+                <ScalarProperty Name="motivo" ColumnName="motivo" />
+                <ScalarProperty Name="fecha_salida" ColumnName="fecha_salida" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,23 +1,23 @@
 ﻿@model IEnumerable<ProyectoRecursosHumanos.Models.empleados>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ListaDeEmpleados";
 }
 
-<h2>Index</h2>
+<h2>Listado De Empleados</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar Nuevo", "Create")
 </p>
 
 @using (Html.BeginForm("Index", "empleados", FormMethod.Post))
 {
     <div class="container">
-        Buscar nomina por Nombre @Html.TextBox("emp")  Buscar nomina por Departamento @Html.TextBox("deprt")
-        <input type="submit" value="Buscar" />
-    </div>
+        Buscar por Nombre @Html.TextBox("consulta")  Buscar por Departamento @Html.DropDownList("Departamento", null, new { })
+        <input type="submit" value="Buscar" class="btn btn-primary" />
+    </div> <br/>
 }
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.codigo_empleado)
@@ -51,6 +51,9 @@
 
     @foreach (var item in Model)
     {
+        if (item.estatus == "Activo")
+        {
+
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.codigo_empleado)
@@ -80,11 +83,11 @@
                 @Html.DisplayFor(modelItem => item.departamentos.nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+              <button style="color:white" class="btn btn-warning">@Html.ActionLink("Edit", "Edit", new { id = item.id })</button> |
+              <button class="btn btn-secondary"> @Html.ActionLink("Details", "Details", new { id = item.id }) </button>|
+              <button class="btn btn-danger"> @Html.ActionLink("Delete", "Delete", new { id = item.id }) </button>
             </td>
         </tr>
+        }
     }
-
 </table>

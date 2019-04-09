@@ -4,20 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="260c93b548e44d9a99cd1b9f989b13b1" Name="Diagram1">
-        <EntityTypeShape EntityType="recursoshumaModel.cargos" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="recursoshumaModel.departamentos" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="recursoshumaModel.empleados" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="recursoshumaModel.licencias" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="recursoshumaModel.nominas" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="recursoshumaModel.permisos" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="recursoshumaModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="recursoshumaModel.vacaciones" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+      <Diagram DiagramId="06b2a386cc7146c4a19ca4eda9ba36fd" Name="Diagram1">
+        <EntityTypeShape EntityType="recursoshumaModel.cargos" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="recursoshumaModel.departamentos" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="recursoshumaModel.empleados" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="recursoshumaModel.licencias" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="recursoshumaModel.nominas" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="recursoshumaModel.permisos" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="recursoshumaModel.salidas" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="recursoshumaModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="recursoshumaModel.vacaciones" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
         <AssociationConnector Association="recursoshumaModel.fk_cargo" ManuallyRouted="false" />
         <AssociationConnector Association="recursoshumaModel.fk_departamento" ManuallyRouted="false" />
         <AssociationConnector Association="recursoshumaModel.fk_id_empleado" ManuallyRouted="false" />
         <AssociationConnector Association="recursoshumaModel.fk_id_licempleado" ManuallyRouted="false" />
         <AssociationConnector Association="recursoshumaModel.fk_id_perempleado" ManuallyRouted="false" />
+        <AssociationConnector Association="recursoshumaModel.fk_id_salempleado" ManuallyRouted="false" />
         <AssociationConnector Association="recursoshumaModel.fk_monto_total" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

@@ -31,6 +31,7 @@ namespace ProyectoRecursosHumanos.Models
         public virtual DbSet<licencias> licencias { get; set; }
         public virtual DbSet<nominas> nominas { get; set; }
         public virtual DbSet<permisos> permisos { get; set; }
+        public virtual DbSet<salidas> salidas { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<vacaciones> vacaciones { get; set; }
     }

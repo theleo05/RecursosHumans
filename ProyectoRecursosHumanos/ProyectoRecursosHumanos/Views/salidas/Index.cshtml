@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ProyectoRecursosHumanos.Models.salidas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo_salida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.motivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_salida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.empleados.codigo_empleado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+
+
+    if (item.empleados.estatus == "Activo")
+    {
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo_salida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.motivo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_salida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.empleados.codigo_empleado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        </td>
+    </tr>
+    }
+
+}
+</table>

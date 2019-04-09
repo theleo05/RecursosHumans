@@ -14,22 +14,50 @@ namespace ProyectoRecursosHumanos.Controllers
     {
         private recursoshumaEntities db = new recursoshumaEntities();
 
-        // GET: empleados
+		// GET: empleados
 
-		
-        public ActionResult Index (string emp, int depr, string deprt)
-        {
-			var nomdep = from n in db.empleados select n;
-			
-			if (emp != null)
-			{
-				nomdep = nomdep.Where(n => n.nombre == emp);
-			}
-			
-
+		public ActionResult Salidaempleado()
+		{
+			ViewBag.Departamento = new SelectList(db.departamentos, "id", "nombre");
 			var empleados = db.empleados.Include(e => e.cargos).Include(e => e.departamentos);
-            return View(nomdep);
-        }
+			return View(empleados.ToList());
+		}
+
+		[HttpPost]
+        public ActionResult Index (string consulta, int departamento)
+        {
+			////public ActionResult Consulta(int Departamento, string consulta)
+			//{
+				var empleados = db.empleados.Include(e => e.cargos).Include(e => e.departamentos);
+				ViewBag.Departamento = new SelectList(db.departamentos, "id", "nombre");
+			if (consulta != null || string.IsNullOrEmpty(consulta) || string.IsNullOrWhiteSpace(departamento.ToString()))
+				{
+					return View(empleados.Where(x => x.estatus == "Activo" && x.nombre.Contains(consulta) && x.departamento == departamento).ToList());
+				}
+				else
+				{
+					return View(empleados.ToList());
+				}
+
+			}
+
+			//var nomdep = from n in db.empleados select n;
+			
+			//if (emp != null)
+			//{
+			//	nomdep = nomdep.Where(n => n.nombre == emp);
+			//}
+			
+			
+        //    //return View(nomdep);
+        //}
+		[HttpGet]
+		public ActionResult Index()
+		{
+			ViewBag.Departamento = new SelectList(db.departamentos, "id", "nombre");
+			var empleados = db.empleados.Include(e => e.cargos).Include(e => e.departamentos);
+			return View(empleados.ToList());
+		}
 
         // GET: empleados/Details/5
         public ActionResult Details(int? id)
