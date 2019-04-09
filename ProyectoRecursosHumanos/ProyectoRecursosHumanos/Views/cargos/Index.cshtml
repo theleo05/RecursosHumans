@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<ProyectoRecursosHumanos.Models.cargos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "CargosDeEmpleados";
 }
 
-<h2>Index</h2>
+<h2>Cargos</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.cargo)
@@ -23,9 +23,9 @@
             @Html.DisplayFor(modelItem => item.cargo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+          <button class="btn btn-warning">  @Html.ActionLink("Edit", "Edit", new { id=item.id }) </button> |
+          <button class="btn btn-link">   @Html.ActionLink("Details", "Details", new { id = item.id })</button> |
+             <button class="btn btn-danger"> @Html.ActionLink("Delete", "Delete", new { id = item.id })</button>
         </td>
     </tr>
 }
