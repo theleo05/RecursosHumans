@@ -54,6 +54,7 @@
           <Property Name="año" Type="varchar" MaxLength="15" />
           <Property Name="mes" Type="varchar" MaxLength="15" />
           <Property Name="monto_total" Type="int" />
+          <Property Name="monto_totalizar" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="permisos">
           <Key>
@@ -262,6 +263,7 @@
           <Property Name="año" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="mes" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="monto_total" Type="Int32" />
+          <Property Name="monto_totalizar" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="empleados" Relationship="Self.fk_monto_total" FromRole="nominas" ToRole="empleados" />
         </EntityType>
         <EntityType Name="permisos">
@@ -468,6 +470,7 @@
                 <ScalarProperty Name="año" ColumnName="año" />
                 <ScalarProperty Name="mes" ColumnName="mes" />
                 <ScalarProperty Name="monto_total" ColumnName="monto_total" />
+                <ScalarProperty Name="monto_totalizar" ColumnName="monto_totalizar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

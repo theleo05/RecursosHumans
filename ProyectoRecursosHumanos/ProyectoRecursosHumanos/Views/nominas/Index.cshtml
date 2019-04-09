@@ -9,6 +9,15 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "nominas", FormMethod.Post))
+{
+<div>
+    Buscar por año @Html.TextBox("año")
+    Buscar por mes @Html.TextBox("mes")
+    <input type="submit" value="Buscar" />
+</div>
+}
 <table class="table">
     <tr>
         <th>
@@ -18,28 +27,29 @@
             @Html.DisplayNameFor(model => model.mes)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.monto_total)
+            @Html.DisplayNameFor(model => model.monto_totalizar)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.año)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.mes)
-        </td>
-        <td>
-            @ViewBag.TotalSalario
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.año)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.monto_totalizar)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

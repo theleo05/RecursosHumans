@@ -1,4 +1,4 @@
-﻿@model ProyectoRecursosHumanos.Models.nominas
+﻿@model ProyectoRecursosHumanos.Models.permisos
 
 @{
     ViewBag.Title = "Details";
@@ -7,31 +7,31 @@
 <h2>Details</h2>
 
 <div>
-    <h4>nominas</h4>
+    <h4>permisos</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.año)
+            @Html.DisplayNameFor(model => model.desde)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.año)
+            @Html.DisplayFor(model => model.desde)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.mes)
+            @Html.DisplayNameFor(model => model.hasta)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.mes)
+            @Html.DisplayFor(model => model.hasta)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.monto_totalizar)
+            @Html.DisplayNameFor(model => model.comentarios)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.monto_totalizar)
+            @Html.DisplayFor(model => model.comentarios)
         </dd>
 
         <dt>

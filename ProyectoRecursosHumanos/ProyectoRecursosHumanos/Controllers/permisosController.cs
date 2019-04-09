@@ -10,130 +10,112 @@ using ProyectoRecursosHumanos.Models;
 
 namespace ProyectoRecursosHumanos.Controllers
 {
-    public class nominasController : Controller
+    public class permisosController : Controller
     {
         private recursoshumaEntities db = new recursoshumaEntities();
 
-        // GET: nominas
-        public ActionResult Index(string año, string mes)
+        // GET: permisos
+        public ActionResult Index()
         {
-			var sueldos = from s in db.nominas select s;
-
-			if (!string.IsNullOrEmpty(año))
-			{
-				sueldos = sueldos.Where(s => s.año == (año));
-			}
-
-			if (!string.IsNullOrEmpty(mes))
-			{
-				sueldos = sueldos.Where(s => s.mes == (mes));
-			}
-			var nominas = db.nominas.Include(n => n.empleados);
-			return View(sueldos);
-			
-			//var nominas = db.nominas.Include(n => n.empleados);
-            //return View(nominas.ToList());
+            var permisos = db.permisos.Include(p => p.empleados);
+            return View(permisos.ToList());
         }
 
-        // GET: nominas/Details/5
+        // GET: permisos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            nominas nominas = db.nominas.Find(id);
-            if (nominas == null)
+            permisos permisos = db.permisos.Find(id);
+            if (permisos == null)
             {
                 return HttpNotFound();
             }
-            return View(nominas);
+            return View(permisos);
         }
 
-        // GET: nominas/Create
+        // GET: permisos/Create
         public ActionResult Create()
         {
-			var z = db.empleados.Where(x => x.estatus == "activo").ToList();
-			ViewBag.TotalSalario = z.Sum(a => a.salario);
-
-			//ViewBag.TotalSalario = db.empleados.Sum(a => a.salario);
-			db.SaveChanges();
+            ViewBag.id_perempleado = new SelectList(db.empleados, "id", "codigo_empleado");
             return View();
         }
 
-        // POST: nominas/Create
+        // POST: permisos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,año,mes,monto_total,monto_totalizar")] nominas nominas)
+        public ActionResult Create([Bind(Include = "id,id_perempleado,desde,hasta,comentarios")] permisos permisos)
         {
             if (ModelState.IsValid)
             {
-                db.nominas.Add(nominas);
+                db.permisos.Add(permisos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.monto_total = new SelectList(db.empleados, "id", "codigo_empleado", nominas.monto_total);
-            return View(nominas);
+            ViewBag.id_perempleado = new SelectList(db.empleados, "id", "codigo_empleado", permisos.id_perempleado);
+            return View(permisos);
         }
 
-        // GET: nominas/Edit/5
+        // GET: permisos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            nominas nominas = db.nominas.Find(id);
-            if (nominas == null)
+            permisos permisos = db.permisos.Find(id);
+            if (permisos == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.monto_total = new SelectList(db.empleados, "id", "codigo_empleado", nominas.monto_total);
-            return View(nominas);
+            ViewBag.id_perempleado = new SelectList(db.empleados, "id", "codigo_empleado", permisos.id_perempleado);
+            return View(permisos);
         }
 
-        // POST: nominas/Edit/5
+        // POST: permisos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,año,mes,monto_total,monto_totalizar")] nominas nominas)
+        public ActionResult Edit([Bind(Include = "id,id_perempleado,desde,hasta,comentarios")] permisos permisos)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(nominas).State = EntityState.Modified;
+                db.Entry(permisos).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.monto_total = new SelectList(db.empleados, "id", "codigo_empleado", nominas.monto_total);
-            return View(nominas);
+            ViewBag.id_perempleado = new SelectList(db.empleados, "id", "codigo_empleado", permisos.id_perempleado);
+            return View(permisos);
         }
 
-        // GET: nominas/Delete/5
+        // GET: permisos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            nominas nominas = db.nominas.Find(id);
-            if (nominas == null)
+            permisos permisos = db.permisos.Find(id);
+            if (permisos == null)
             {
                 return HttpNotFound();
             }
-            return View(nominas);
+            return View(permisos);
         }
 
-        // POST: nominas/Delete/5
+        // POST: permisos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            nominas nominas = db.nominas.Find(id);
-            db.nominas.Remove(nominas);
+            permisos permisos = db.permisos.Find(id);
+            db.permisos.Remove(permisos);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

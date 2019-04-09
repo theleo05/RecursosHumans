@@ -18,6 +18,7 @@ namespace ProyectoRecursosHumanos.Models
         public string año { get; set; }
         public string mes { get; set; }
         public Nullable<int> monto_total { get; set; }
+        public Nullable<decimal> monto_totalizar { get; set; }
     
         public virtual empleados empleados { get; set; }
     }

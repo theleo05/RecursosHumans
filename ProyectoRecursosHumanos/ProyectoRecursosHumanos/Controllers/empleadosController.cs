@@ -17,10 +17,18 @@ namespace ProyectoRecursosHumanos.Controllers
         // GET: empleados
 
 		
-        public ActionResult Index()
+        public ActionResult Index (string emp, int depr, string deprt)
         {
-            var empleados = db.empleados.Include(e => e.cargos).Include(e => e.departamentos);
-            return View(empleados.ToList());
+			var nomdep = from n in db.empleados select n;
+			
+			if (emp != null)
+			{
+				nomdep = nomdep.Where(n => n.nombre == emp);
+			}
+			
+
+			var empleados = db.empleados.Include(e => e.cargos).Include(e => e.departamentos);
+            return View(nomdep);
         }
 
         // GET: empleados/Details/5

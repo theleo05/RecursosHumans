@@ -10,130 +10,112 @@ using ProyectoRecursosHumanos.Models;
 
 namespace ProyectoRecursosHumanos.Controllers
 {
-    public class nominasController : Controller
+    public class licenciasController : Controller
     {
         private recursoshumaEntities db = new recursoshumaEntities();
 
-        // GET: nominas
-        public ActionResult Index(string año, string mes)
+        // GET: licencias
+        public ActionResult Index()
         {
-			var sueldos = from s in db.nominas select s;
-
-			if (!string.IsNullOrEmpty(año))
-			{
-				sueldos = sueldos.Where(s => s.año == (año));
-			}
-
-			if (!string.IsNullOrEmpty(mes))
-			{
-				sueldos = sueldos.Where(s => s.mes == (mes));
-			}
-			var nominas = db.nominas.Include(n => n.empleados);
-			return View(sueldos);
-			
-			//var nominas = db.nominas.Include(n => n.empleados);
-            //return View(nominas.ToList());
+            var licencias = db.licencias.Include(l => l.empleados);
+            return View(licencias.ToList());
         }
 
-        // GET: nominas/Details/5
+        // GET: licencias/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            nominas nominas = db.nominas.Find(id);
-            if (nominas == null)
+            licencias licencias = db.licencias.Find(id);
+            if (licencias == null)
             {
                 return HttpNotFound();
             }
-            return View(nominas);
+            return View(licencias);
         }
 
-        // GET: nominas/Create
+        // GET: licencias/Create
         public ActionResult Create()
         {
-			var z = db.empleados.Where(x => x.estatus == "activo").ToList();
-			ViewBag.TotalSalario = z.Sum(a => a.salario);
-
-			//ViewBag.TotalSalario = db.empleados.Sum(a => a.salario);
-			db.SaveChanges();
+            ViewBag.id_licempleado = new SelectList(db.empleados, "id", "codigo_empleado");
             return View();
         }
 
-        // POST: nominas/Create
+        // POST: licencias/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,año,mes,monto_total,monto_totalizar")] nominas nominas)
+        public ActionResult Create([Bind(Include = "id,id_licempleado,desde,hasta,motivo,comentarios")] licencias licencias)
         {
             if (ModelState.IsValid)
             {
-                db.nominas.Add(nominas);
+                db.licencias.Add(licencias);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.monto_total = new SelectList(db.empleados, "id", "codigo_empleado", nominas.monto_total);
-            return View(nominas);
+            ViewBag.id_licempleado = new SelectList(db.empleados, "id", "codigo_empleado", licencias.id_licempleado);
+            return View(licencias);
         }
 
-        // GET: nominas/Edit/5
+        // GET: licencias/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            nominas nominas = db.nominas.Find(id);
-            if (nominas == null)
+            licencias licencias = db.licencias.Find(id);
+            if (licencias == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.monto_total = new SelectList(db.empleados, "id", "codigo_empleado", nominas.monto_total);
-            return View(nominas);
+            ViewBag.id_licempleado = new SelectList(db.empleados, "id", "codigo_empleado", licencias.id_licempleado);
+            return View(licencias);
         }
 
-        // POST: nominas/Edit/5
+        // POST: licencias/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,año,mes,monto_total,monto_totalizar")] nominas nominas)
+        public ActionResult Edit([Bind(Include = "id,id_licempleado,desde,hasta,motivo,comentarios")] licencias licencias)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(nominas).State = EntityState.Modified;
+                db.Entry(licencias).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.monto_total = new SelectList(db.empleados, "id", "codigo_empleado", nominas.monto_total);
-            return View(nominas);
+            ViewBag.id_licempleado = new SelectList(db.empleados, "id", "codigo_empleado", licencias.id_licempleado);
+            return View(licencias);
         }
 
-        // GET: nominas/Delete/5
+        // GET: licencias/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            nominas nominas = db.nominas.Find(id);
-            if (nominas == null)
+            licencias licencias = db.licencias.Find(id);
+            if (licencias == null)
             {
                 return HttpNotFound();
             }
-            return View(nominas);
+            return View(licencias);
         }
 
-        // POST: nominas/Delete/5
+        // POST: licencias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            nominas nominas = db.nominas.Find(id);
-            db.nominas.Remove(nominas);
+            licencias licencias = db.licencias.Find(id);
+            db.licencias.Remove(licencias);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
